@@ -26,22 +26,21 @@ const timer = (deadline) => {
         return { timeRemaning, days, hours, minutes, seconds }
     }
 
+    const addZero = (number) => {
+        return number < 10 ? `0${number}` : number;
+    }
+
     const updateClock = () => {
         let getTime = getTimerRemaining();
 
         if (getTime.timeRemaning > 0) {
-            if (getTime.hours < 10) {
-                timerHours.textContent = '0' + getTime.hours;
-            } else { timerHours.textContent = getTime.hours; }
-            if (getTime.minutes < 10) {
-                timerMinutes.textContent = '0' + getTime.minutes;
-            } else { timerMinutes.textContent = getTime.minutes; }
-            if (getTime.seconds < 10) {
-                timerSeconds.textContent = '0' + getTime.seconds;
-            } else { timerSeconds.textContent = getTime.seconds; }
-            if (getTime.days < 10) {
-                timerDays.textContent = '0' + getTime.days;
-            } else { timerDays.textContent = getTime.days; }
+            timerHours.textContent = addZero(getTime.hours);
+
+            timerMinutes.textContent = addZero(getTime.minutes);
+
+            timerSeconds.textContent = addZero(getTime.seconds);
+
+            timerDays.textContent = addZero(getTime.days);
 
         }
         //if (getTime.timeRemaning > 0) { setTimeout(updateClock, 1000) }
@@ -50,6 +49,7 @@ const timer = (deadline) => {
     // updateClock();
 
     if (getTimerRemaining().timeRemaning > 0) {
+        updateClock();
         setInterval(updateClock, 1000, deadline)
     } else {
         timerHours.textContent = '00';
@@ -58,5 +58,6 @@ const timer = (deadline) => {
         timerDays.textContent = '00';
     }
 }
+
 
 export default timer;
