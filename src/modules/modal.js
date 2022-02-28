@@ -2,7 +2,6 @@ const modal = () => {
 
     const modal = document.querySelector('.popup');
     const popupBtn = document.querySelectorAll('.popup-btn');
-    const popupCloseBtn = modal.querySelector('.popup-close');
 
     const openModal = function () {
         if (window.screen.width > 768) {
@@ -53,9 +52,12 @@ const modal = () => {
             })
         })
 
-        popupCloseBtn.addEventListener('click', () => {
-            closeModal()
+        modal.addEventListener('click', (e) => {
+            if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+                closeModal()
+            }
         })
+
     }
 
     init()
@@ -63,9 +65,3 @@ const modal = () => {
 }
 
 export default modal;
-//Использовать JS анимацию. Использовать нативный JavaScript. Использование
-// сторонних библиотек запрещено!
-// Необходимо манипулировать элементами посредством JS. СSS анимация не подходит
-// для анимирования модального окна.
-// 3) Если пользователь заходит на сайт с устройства, у которого ширина экрана
-// меньше 768px (мобильного устройства) - анимация отключается
