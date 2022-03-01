@@ -1,23 +1,24 @@
 const scroll = () => {
 
-    const links = document.querySelectorAll('menu>ul>li>a');
     const nextSlideLink = document.querySelector('main>a')
 
+    const scrollTo = (element) => {
+        const id = element.getAttribute('href');
+        const link = document.querySelector(id);
 
-    links.forEach((element) => {
-        element.addEventListener('click', (event) => {
-            event.preventDefault();
+        link.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
 
-            const id = element.getAttribute('href');
-            const link = document.querySelector(id);
-
-            link.scrollIntoView({ block: "start", behavior: "smooth" });
-        })
+    document.querySelector('menu').addEventListener('click', (e) => {
+        if (e.target.matches('menu>ul>li>a')) {
+            e.preventDefault();
+            scrollTo(e.target);
+        }
     })
+
 
     nextSlideLink.addEventListener('click', (event) => {
         event.preventDefault();
-
         const nextSlide = document.querySelector('.service');
         nextSlide.scrollIntoView({ block: "start", behavior: "smooth" });
 
