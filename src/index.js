@@ -6,6 +6,7 @@ import validation from './modules/validation';
 import tabs from './modules/tabs';
 import sliderDots from './modules/sliderDots';
 import slider from './modules/slider';
+import calc from './modules/calc';
 
 const sliderClasses = {
     dotClass: 'dot',
@@ -20,5 +21,6 @@ modal();
 scroll();
 validation();
 tabs();
-sliderDots()
+sliderDots();
 slider(sliderClasses);
+calc(100);
