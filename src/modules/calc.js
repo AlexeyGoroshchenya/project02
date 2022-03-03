@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calc = (price = 100) => {
 
     const calcBlock = document.querySelector('.calc-block');
@@ -7,7 +9,19 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day');
     const total = document.getElementById('total')
 
+    const showTotal = (value) => {
 
+        animate({
+            duration: 300,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                total.textContent = parseInt(value * progress);
+            }
+        });
+
+    }
 
     const counCalc = () => {
         const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -31,7 +45,8 @@ const calc = (price = 100) => {
             totalValue = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
         }
 
-        total.textContent = totalValue
+        showTotal(totalValue)
+        // total.textContent = totalValue
 
     }
 

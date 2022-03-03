@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const modal = () => {
 
     const modal = document.querySelector('.popup');
@@ -5,15 +7,20 @@ const modal = () => {
 
     const openModal = function () {
         if (window.screen.width > 768) {
-            let count = parseInt(modal.style.transform.slice(11)) + 5;
+            let count = parseInt(modal.style.transform.slice(11));
 
-            let idInterval = requestAnimationFrame(openModal);
+            animate({
+                duration: 1000,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
 
-            if (count <= 0) {
+                    count = count - (count * progress)
+                    modal.style.transform = 'translateX(' + (count) + '%)';
+                }
+            });
 
-                modal.style.transform = 'translateX(' + count + '%)';
-
-            } else { cancelAnimationFrame(idInterval) }
         } else {
             modal.style.transform = 'translateX(0%)';
         }
@@ -26,16 +33,20 @@ const modal = () => {
     const closeModal = function () {
 
         if (window.screen.width > 768) {
-            let count = parseInt(modal.style.transform.slice(11)) + 5
 
-            let idInterval = requestAnimationFrame(closeModal);
+            let count = parseInt(modal.style.transform.slice(11));
 
-            if (count <= 100) {
-                modal.style.transform = 'translateX(' + count + '%)';
-            } else {
-                cancelAnimationFrame(idInterval)
-                modal.style.transform = 'translateX(-100%)'
-            }
+            animate({
+                duration: 1000,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    count = (count + progress)
+
+                    modal.style.transform = 'translateX(' + (count * 100) + '%)';
+                }
+            });
         } else {
             modal.style.transform = 'translateX(-100%)';
 
