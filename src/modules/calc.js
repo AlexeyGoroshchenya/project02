@@ -13,9 +13,6 @@ const calc = (price = 100) => {
     const showTotal = (value, animatedValue) => {
 
         let delta = Math.abs(value - animatedValue);
-        console.log('delta: ' + delta);
-        console.log('value: ' + value);
-        console.log('animatedValue: ' + animatedValue);
 
         animate({
             duration: 300,
