@@ -8,6 +8,7 @@ import sliderDots from './modules/sliderDots';
 import slider from './modules/slider';
 import calc from './modules/calc';
 
+
 const sliderClasses = {
     dotClass: 'dot',
     portfolioItemClass: 'portfolio-item',

@@ -9,7 +9,13 @@ const calc = (price = 100) => {
     const calcDay = document.querySelector('.calc-day');
     const total = document.getElementById('total')
 
-    const showTotal = (value) => {
+
+    const showTotal = (value, animatedValue) => {
+
+        let delta = Math.abs(value - animatedValue);
+        console.log('delta: ' + delta);
+        console.log('value: ' + value);
+        console.log('animatedValue: ' + animatedValue);
 
         animate({
             duration: 300,
@@ -17,19 +23,25 @@ const calc = (price = 100) => {
                 return timeFraction;
             },
             draw(progress) {
-                total.textContent = parseInt(value * progress);
+                if (value >= animatedValue) {
+                    total.textContent = animatedValue + Math.floor(delta * progress);
+                } else {
+                    total.textContent = animatedValue - Math.floor(delta * progress);
+                }
+
             }
         });
 
     }
 
-    const counCalc = () => {
+    const countCalc = () => {
         const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
         const calcSquareValue = calcSquare.value
 
         let totalValue = 0;
         let calcCountValue = 1;
         let calcDayValue = 1;
+        let animatedValue = +total.textContent;
 
 
         if (calcCount.value > 1) {
@@ -45,8 +57,7 @@ const calc = (price = 100) => {
             totalValue = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
         }
 
-        showTotal(totalValue)
-        // total.textContent = totalValue
+        showTotal(totalValue, animatedValue);
 
     }
 
@@ -54,9 +65,8 @@ const calc = (price = 100) => {
 
         if (e.target === calcType || e.target === calcSquare ||
             e.target === calcCount || e.target === calcDay) {
-            counCalc()
+            countCalc()
         }
-
     })
 
 }
