@@ -1,6 +1,6 @@
 const validation = () => {
 
-    const conditionsValidation = (e) => {
+    const checkConditionsValidation = (e) => {
         if (e.target.matches('.calc-block input ')) {
             e.target.value = e.target.value.replace(/\D+/, "");
 
@@ -15,12 +15,37 @@ const validation = () => {
         }
     }
 
+    const correctValidationData = (e) => {
+        //Несколько идущих подряд пробелов или дефисов должны заменяться на один.  
+        //Пробелы и дефисы в начале и конце значения должны удаляться.
+        if (e.target.matches('input')) {
+            e.target.value = e.target.value.replace((/\s+/g), ' ').replace((/\-+/g), '-').trim().replace(/^\-/g, '').replace(/\-$/g, '').trim()
+        }
+
+        //Для поля type=text Первая буква каждого слова должна приводиться к верхнему регистру, а все остальные — к нижнему.
+        if (e.target.classList.contains('form-name')) {
+            e.target.value = e.target.value.toLowerCase().split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
+        }
+    }
+
     document.body.addEventListener('input', (e) => {
 
         document.getElementById('form2-name').classList.add('form-name');
-        conditionsValidation(e);
-
+        checkConditionsValidation(e);
     })
+
+    document.querySelector('.main-form-input').addEventListener("blur", (e) => {
+        correctValidationData(e);
+    }, true)
+
+    document.querySelector('.popup-content').addEventListener("blur", (e) => {
+        correctValidationData(e);
+    }, true)
+
+    document.querySelector('.footer-form-input').addEventListener("blur", (e) => {
+        correctValidationData(e);
+    }, true)
+
 
 }
 
