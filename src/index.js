@@ -7,6 +7,7 @@ import tabs from './modules/tabs';
 import sliderDots from './modules/sliderDots';
 import slider from './modules/slider';
 import calc from './modules/calc';
+import { swiper } from './modules/swiper';
 
 
 const sliderClasses = {
@@ -16,7 +17,7 @@ const sliderClasses = {
     portfolioBtnClass: 'portfolio-btn',
 };
 
-timer('09 march 2022');
+timer('14 march 2022');
 menu();
 modal();
 scroll();
@@ -25,3 +26,4 @@ tabs();
 sliderDots();
 slider(sliderClasses);
 calc(100);
+swiper();
