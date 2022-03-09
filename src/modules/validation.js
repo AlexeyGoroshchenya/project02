@@ -4,11 +4,15 @@ const validation = () => {
         if (e.target.matches('.calc-block input ')) {
             e.target.value = e.target.value.replace(/\D+/, "");
 
-        } else if (e.target.matches('input.form-name') || e.target.matches('input.mess')) {
+        } else if (e.target.matches('input.form-name')) {
             e.target.value = e.target.value.replace(/[^а-яА-я\s\-]/, "");
         }
+        else if (e.target.matches('input.mess')) {
+            e.target.value = e.target.value.replace(/[^а-яА-я\s,.!?;:()]/, ""); //тут расширил 
+            //перечень допустимых символов, согласно заданию к уроку 27
+        }
         else if (e.target.matches('.form-phone')) {
-            e.target.value = e.target.value.replace(/[^0-9\(\)\-]/, "");
+            e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]/, "");
         }
         else if (e.target.matches('.form-email')) {
             e.target.value = e.target.value.replace(/[^\w\-\.\_\~\!\*\'\@]/, "");
@@ -26,11 +30,12 @@ const validation = () => {
         if (e.target.classList.contains('form-name')) {
             e.target.value = e.target.value.toLowerCase().split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ')
         }
+
+        // e.target.classList.add('success')
+
     }
 
     document.body.addEventListener('input', (e) => {
-
-        document.getElementById('form2-name').classList.add('form-name');
         checkConditionsValidation(e);
     })
 
@@ -49,4 +54,4 @@ const validation = () => {
 
 }
 
-export default validation;
+export { validation };
