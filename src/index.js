@@ -1,6 +1,6 @@
 import timer from './modules/timer';
 import menu from './modules/menu';
-import modal from './modules/modal';
+import { modal } from './modules/modal';
 import scroll from './modules/scroll';
 import { validation } from './modules/validation';
 import tabs from './modules/tabs';
@@ -18,7 +18,7 @@ const sliderClasses = {
     portfolioBtnClass: 'portfolio-btn',
 };
 
-timer('14 march 2022');
+timer('24 march 2022');
 menu();
 modal();
 scroll();

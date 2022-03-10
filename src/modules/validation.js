@@ -51,6 +51,9 @@ const validation = () => {
         correctValidationData(e);
     }, true)
 
+    document.querySelector('.form-email').setAttribute('required', 'required')
+
+
 
 }
 

@@ -26,10 +26,7 @@ const modal = () => {
         }
     }
 
-    //понимаю, что тут можно было бы и открытие и закрытие сделать 
-    //одной функцией с передачей аргументом значения, с которым будет 
-    //count сравниваться, но допилить до рабочего состояния такой вариант
-    //тупо нет времени
+
     const closeModal = function () {
 
         if (window.screen.width > 768) {
@@ -69,10 +66,17 @@ const modal = () => {
             }
         })
 
+
+
+    }
+
+    if (modal.classList.contains('close-modal')) {
+        closeModal()
+        modal.classList.remove('close-modal')
     }
 
     init()
 
 }
 
-export default modal;
+export { modal };

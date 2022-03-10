@@ -1,3 +1,4 @@
+import { modal } from './modal';
 
 const sendForm = ({ formId, someElem = [] }) => {
 
@@ -20,23 +21,26 @@ const sendForm = ({ formId, someElem = [] }) => {
             list.forEach(input => {
 
                 //В поля name="user_name" разрешить ввод только кириллицы и пробелов
+                //Имя пользователя должно состоять не менее, чем из двух букв.
+
                 if (input.matches('input.form-name')) {
-                    if (input.value.match(/[^а-яА-я\s]/)) {
-                        //console.log('Проверьте данные');
+                    if (input.value.match(/[^а-яА-я\s]/) || input.value.length < 2) {
+
                         nameInput = false
                     }
                 }
                 //В поля name="user_message" разрешить только кириллицу, пробелы, цифры и знаки препинания
                 if (input.classList.contains('mess')) {
                     if (input.value.match(/[^а-яА-я\s,.!?;:()]/)) {
-                        //console.log('Проверьте данные');
+
                         messInput = false
                     }
                 }
                 //В поля name="user_phone" разрешить ввод только цифр, знака “+”, круглых скобок и дефис
+                //Телефон должен состоять от 5 до 16 цифр
                 if (input.classList.contains('form-phone')) {
-                    if (input.value.match(/[^0-9\(\)\-\+]/)) {
-                        //console.log('Проверьте данные');
+                    if (input.value.match(/[^0-9\(\)\-\+]/) || input.value.length < 5 || input.value.length > 16) {
+
                         phoneInput = false
                     }
                 }
@@ -91,8 +95,10 @@ const sendForm = ({ formId, someElem = [] }) => {
                 sendData(formBody)
                     .then(data => {
                         statusBlock.textContent = successText
+                        document.querySelector('.popup').classList.add('close-modal')
                         setTimeout(() => {
-                            statusBlock.remove()// это не по тз, но некрасиво когда остается блок после отправки
+                            modal()
+                            statusBlock.remove()
                         }, 5000)
                         formElements.forEach(input => {
                             input.value = ''
