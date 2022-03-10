@@ -12,6 +12,14 @@ const sendForm = ({ formId, someElem = [] }) => {
         const loadText = 'скоро все будет...';
         const successText = 'С вами свяжется наш менеджер';
 
+        const showUncorrectInput = (input) => {
+            input.style.border = '2px solid red'
+
+            setTimeout(() => {
+                input.style.border = ''
+            }, 3000)
+        }
+
         const validate = (list) => {
 
             let nameInput = true
@@ -25,14 +33,14 @@ const sendForm = ({ formId, someElem = [] }) => {
 
                 if (input.matches('input.form-name')) {
                     if (input.value.match(/[^а-яА-я\s]/) || input.value.length < 2) {
-
+                        showUncorrectInput(input)
                         nameInput = false
                     }
                 }
                 //В поля name="user_message" разрешить только кириллицу, пробелы, цифры и знаки препинания
                 if (input.classList.contains('mess')) {
                     if (input.value.match(/[^а-яА-я\s,.!?;:()]/)) {
-
+                        showUncorrectInput(input)
                         messInput = false
                     }
                 }
@@ -40,7 +48,7 @@ const sendForm = ({ formId, someElem = [] }) => {
                 //Телефон должен состоять от 5 до 16 цифр
                 if (input.classList.contains('form-phone')) {
                     if (input.value.match(/[^0-9\(\)\-\+]/) || input.value.length < 5 || input.value.length > 16) {
-
+                        showUncorrectInput(input)
                         phoneInput = false
                     }
                 }
