@@ -12,6 +12,10 @@ const sendForm = ({ formId, someElem = [] }) => {
         const loadText = 'скоро все будет...';
         const successText = 'С вами свяжется наш менеджер';
 
+        const showSubmitStatus = (str) => {
+            statusBlock.textContent = str
+        }
+
         const showUncorrectInput = (input) => {
             input.style.border = '2px solid red'
 
@@ -34,6 +38,7 @@ const sendForm = ({ formId, someElem = [] }) => {
                 if (input.matches('input.form-name')) {
                     if (input.value.match(/[^а-яА-я\s]/) || input.value.length < 2) {
                         showUncorrectInput(input)
+                        showSubmitStatus('пожалуйста проверьте введенные данные')
                         nameInput = false
                     }
                 }
@@ -41,6 +46,7 @@ const sendForm = ({ formId, someElem = [] }) => {
                 if (input.classList.contains('mess')) {
                     if (input.value.match(/[^а-яА-я\s,.!?;:()]/)) {
                         showUncorrectInput(input)
+                        showSubmitStatus('пожалуйста проверьте введенные данные')
                         messInput = false
                     }
                 }
@@ -49,17 +55,15 @@ const sendForm = ({ formId, someElem = [] }) => {
                 if (input.classList.contains('form-phone')) {
                     if (input.value.match(/[^0-9\(\)\-\+]/) || input.value.length < 5 || input.value.length > 16) {
                         showUncorrectInput(input)
+                        showSubmitStatus('пожалуйста проверьте введенные данные')
                         phoneInput = false
                     }
                 }
-
             })
             let success = nameInput && messInput && phoneInput
 
             return success
         }
-
-
 
         const sendData = (data) => {
             return fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -77,7 +81,7 @@ const sendForm = ({ formId, someElem = [] }) => {
             const formData = new FormData(form)
             const formBody = {}
 
-            statusBlock.textContent = loadText
+            showSubmitStatus(loadText)
             form.append(statusBlock)
             if (formBlock === 'form3') {
                 statusBlock.style.color = 'white'
@@ -102,8 +106,10 @@ const sendForm = ({ formId, someElem = [] }) => {
             if (validate(formElements)) {
                 sendData(formBody)
                     .then(data => {
-                        statusBlock.textContent = successText
+                        showSubmitStatus(successText)
+
                         document.querySelector('.popup').classList.add('close-modal')
+
                         setTimeout(() => {
                             modal()
                             statusBlock.remove()
@@ -116,7 +122,8 @@ const sendForm = ({ formId, someElem = [] }) => {
                     .catch(error => {
 
                         console.log(error);
-                        statusBlock.textContent = errorText
+                        successText(errorText)
+
                     })
             } else {
                 console.log('данные не валидны');
